@@ -3,11 +3,14 @@ import 'package:google_fonts/google_fonts.dart';
 import '../widgets/reusable_container.dart';
 import '../widgets/reusable_container2.dart';
 import '../constants.dart';
-import '../repository/currencies.dart';
+
 //import 'package:provider/provider.dart';
 
 class CurrencyScreen extends StatefulWidget {
   static String id = 'calc_screen';
+
+  final List<String> newCurrencyList;
+  CurrencyScreen({this.newCurrencyList});
 
   @override
   _CurrencyScreenState createState() => _CurrencyScreenState();
@@ -15,22 +18,8 @@ class CurrencyScreen extends StatefulWidget {
 
 class _CurrencyScreenState extends State<CurrencyScreen> {
   @override
-  void initState() {
-    getCurrencyList();
-    super.initState();
-  }
-
-  getCurrencyList() async {
-    var currencyData = await CurrencyData().getCurrencyData();
-    List<String> currencyList = currencyData;
-    //print(currencyList);
-    Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return ReusableContainer2(newCurrencyList: currencyList); //passing the currency list over to container2
-    }));
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final currencyList = ModalRoute.of(context).settings.arguments;
     return Scaffold(
         backgroundColor: Colors.black,
         appBar: AppBar(
@@ -48,7 +37,7 @@ class _CurrencyScreenState extends State<CurrencyScreen> {
                   decoration: BoxDecoration(
                       color: kContainerColor,
                       borderRadius: BorderRadius.circular(10.0)),
-                  child: ReusableContainer(),
+                  child: ReusableContainer(newCurrencyList: currencyList),
                 ),
               ),
               SizedBox(height: 5.0),
@@ -57,7 +46,7 @@ class _CurrencyScreenState extends State<CurrencyScreen> {
                   decoration: BoxDecoration(
                       color: kContainerColor,
                       borderRadius: BorderRadius.circular(10.0)),
-                  child: ReusableContainer2(),
+                  child: ReusableContainer2(newCurrencyList: currencyList),
                 ),
               ),
             ],

@@ -8,6 +8,7 @@ class ReusableContainer2 extends StatefulWidget {
   final List<String> newCurrencyList;
 
   ReusableContainer2({this.newCurrencyList});
+  
 
   @override
   ReusableContainer2State createState() => ReusableContainer2State();

@@ -6,6 +6,9 @@ import 'package:flutter/services.dart';
 
 
 class ReusableContainer extends StatefulWidget {
+  final List<String> newCurrencyList;
+
+  ReusableContainer({this.newCurrencyList});
   @override
   _ReusableContainerState createState() => _ReusableContainerState();
 }
@@ -15,7 +18,7 @@ class _ReusableContainerState extends State<ReusableContainer> {
 
   DropdownButton<String> currencyResultDropdown() {
     List<DropdownMenuItem<String>> dropdownItems = [];
-    for (String currency in currenciesList) {
+    for (String currency in widget.newCurrencyList) {
       var newItem = DropdownMenuItem(
         child: Text(currency),
         value: currency,

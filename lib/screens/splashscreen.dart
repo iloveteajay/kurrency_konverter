@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import '../screens/currency_screen.dart';
+import '../repository/currencies.dart';
 
 class SplashScreen extends StatefulWidget {
   static String id = 'splash_screen';
@@ -31,9 +32,17 @@ class _SplashScreenState extends State<SplashScreen>
 
     controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
-        Navigator.pushReplacementNamed(context, CurrencyScreen.id);
+        getCurrencyList();
       }
     });
+  }
+
+  getCurrencyList() async {
+    var currencyData = await CurrencyData().getCurrencyData();
+    List<String> currencyList = currencyData;
+
+    Navigator.pushReplacementNamed(context, CurrencyScreen.id,
+        arguments: currencyList);
   }
 
   @override
